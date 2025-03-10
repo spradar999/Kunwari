@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +63,9 @@
             height: 4px;
             background-color: white;
             cursor: pointer;
+            top: 50%; /* Position the slider at the center */
             opacity: 1;
+            z-index: 10; /* Ensure the slider is above the images */
         }
 
         .image2 {
@@ -79,12 +83,12 @@
         }
 
         label.before {
-            top: 10px;
+            top: -20px; /* Fixed position above the slider */
             left: 50%;
         }
 
         label.after {
-            bottom: 10px;
+            bottom: -20px; /* Fixed position below the slider */
             left: 50%;
         }
 
@@ -171,9 +175,9 @@
             // Update slider position
             sliderBar.style.top = `${position}%`;
 
-            // Move the labels dynamically based on slider position
-            beforeLabel.style.top = `${position - 5}%`;
-            afterLabel.style.top = `${position + 5}%`;
+            // Labels should stay fixed above and below the slider
+            beforeLabel.style.top = '-20px'; // Above the slider
+            afterLabel.style.bottom = '-20px'; // Below the slider
         }
 
         // Event listener for mouse wheel (scrolling)
@@ -216,3 +220,4 @@
     </script>
 </body>
 </html>
+
