@@ -16,7 +16,7 @@
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
-            overflow: hidden; /* Prevent page overflow */
+            overflow: hidden;
         }
 
         .wrapper {
@@ -31,7 +31,7 @@
         .image-container {
             position: relative;
             width: 100%;
-            height: 400px; /* Fixed height for consistency */
+            height: 400px;
             overflow: hidden;
         }
 
@@ -54,7 +54,6 @@
             height: 4px;
             background-color: white;
             cursor: pointer;
-            top: 50%; /* Centered slider */
             opacity: 1;
             z-index: 10;
         }
@@ -63,19 +62,12 @@
             position: absolute;
             color: white;
             font-weight: bold;
-            background-color: rgba(0, 0, 0, 0);
-            font-size: 16px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
             transform: translateX(-50%);
             transition: opacity 0.2s ease;
-        }
-
-        .label.before {
-            top: -20px; /* Fixed above slider */
-            left: 50%;
-        }
-
-        .label.after {
-            bottom: -20px; /* Fixed below slider */
             left: 50%;
         }
 
@@ -135,7 +127,7 @@
     </div>
 
     <script>
-        let position = 0;
+        let position = 50; // Start at the middle
         let startY = 0;
 
         function updateClipPath() {
@@ -147,6 +139,8 @@
             image2.style.clipPath = `inset(${position}% 0 0 0)`;
 
             sliderBar.style.top = `${position}%`;
+            beforeLabel.style.top = `${position - 5}%`; // Slightly above slider
+            afterLabel.style.top = `${position + 5}%`; // Slightly below slider
         }
 
         document.addEventListener('wheel', (event) => {
