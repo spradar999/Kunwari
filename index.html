@@ -26,7 +26,8 @@
             align-items: center;
             text-align: center;
         }
-.image-container {
+
+        .image-container {
             position: relative;
             width: 100%;
             height: 100%;
@@ -41,55 +42,48 @@
             object-fit: cover;
         }
 
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                height: auto;
+            }
 
-@media (max-width: 768px) {
-    .container {
-        max-width: 100%;
-        height: auto;
-    }
+            .image1, .image2 {
+                height: auto;
+            }
+        }
 
-    .image1, .image2 {
-        height: auto;
-    }
-}
-     
-.slider-bar {
-    position: relative;
-    width: 100%;
-    height: 2px;
-    background-color: white;
-    opacity: 1;
-}
-
-       
-
-        
+        .slider-bar {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+            opacity: 1;
+        }
 
         .image2 {
             clip-path: inset(100% 0 0 0);
         }
 
-        
+        .label {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0);
+            font-size: 16px;
+            transform: translateX(-50%); /* Horizontally center the labels */
+            transition: top 0.2s ease; /* Smooth transition */
+        }
 
-  .label {
-    position: absolute;
-    font-weight: bold;
-    background-color: rgba(0, 0, 0, 0);
-    
-    border-radius: 0px;
-}      
+        label.before {
+            top: 0px; /* Initially position at the top */
+            left: 50%; /* Center horizontally */
+        }
 
-label.before {
-    color: white;
-    top: 0px;
-    left: 50%;
-}
-
-label.after {
-    color: white;
-    bottom: 0px;
-    left: 50%;
-}
+        label.after {
+            bottom: 0px; /* Initially position at the bottom */
+            left: 50%; /* Center horizontally */
+        }
 
         .text-content {
             width: 100%;
@@ -113,6 +107,7 @@ label.after {
                 justify-content: center;
                 text-align: left;
             }
+
             .container, .text-content {
                 width: 50%;
             }
@@ -122,7 +117,7 @@ label.after {
 <body>
     <div class="wrapper">
         <div class="container">
-		 <h3 class="title">Kunwari Landslide (Bageshwar, Uttarakhand)</h3>
+            <h3 class="title">Kunwari Landslide (Bageshwar, Uttarakhand)</h3>
             <p>ISRO obtained satellite images of this region and made the following observations.</p>
             <div class="image-container">
                 <img src="Post.png" alt="Before Landslide" class="image1">
@@ -134,81 +129,86 @@ label.after {
         </div>
 
         <div class="text-content">
-             <p>(Swipe up or down to see the visualization)</p>
+            <p>(Swipe up or down to see the visualization)</p>
             <p>A landslide-dammed lake was discovered near Kunwari village on November 14, 2024</p>
             <ul>
-		  
-                <li>This barrier lake has been observed to intermittently form and drain since 2014. </li>
-                <li>This recurring blockage poses a significant risk to the Kunwari village. </li>
+                <li>This barrier lake has been observed to intermittently form and drain since 2014.</li>
+                <li>This recurring blockage poses a significant risk to the Kunwari village.</li>
                 <li>The increasing lake volume raises concerns of a potential lake outburst due to seismic activeness of the region.</li>
             </ul>
         </div>
     </div>
 
     <script>
-let position = 0;
-let startY = 0;
+        let position = 0;
+        let startY = 0;
 
-function updateClipPath() {
-    const image2 = document.querySelector('.image2');
-    const sliderBar = document.querySelector('.slider-bar');
-    const beforeLabel = document.querySelector('.label.before');
-    const afterLabel = document.querySelector('.label.after');
-    const container = document.querySelector('.container');
-    const containerHeight = container.offsetHeight;
+        function updateClipPath() {
+            const image2 = document.querySelector('.image2');
+            const sliderBar = document.querySelector('.slider-bar');
+            const beforeLabel = document.querySelector('.label.before');
+            const afterLabel = document.querySelector('.label.after');
+            const container = document.querySelector('.image-container');
 
-    image2.style.clipPath = `inset(${position}% 0 0 0)`;
+            // Apply the clip effect to image2
+            image2.style.clipPath = `inset(${position}% 0 0 0)`;
 
-    if (position > 5) {
-        sliderBar.style.opacity = '1';
-        beforeLabel.style.opacity = '1';
-        afterLabel.style.opacity = '1';
-    } else {
-        sliderBar.style.opacity = '0';
-        beforeLabel.style.opacity = '0';
-        afterLabel.style.opacity = '0';
-    }
+            // Handle label opacity and positioning based on slider position
+            if (position > 5) {
+                sliderBar.style.opacity = '1';
+                beforeLabel.style.opacity = '1';
+                afterLabel.style.opacity = '1';
+            } else {
+                sliderBar.style.opacity = '0';
+                beforeLabel.style.opacity = '0';
+                afterLabel.style.opacity = '0';
+            }
 
-    sliderBar.style.top = `${position}%`;
+            // Update slider position
+            sliderBar.style.top = `${position}%`;
 
-    beforeLabel.style.top = `${position - 5}%`;
-    afterLabel.style.top = `${position + 5}%`;
-}
+            // Move the labels dynamically based on slider position
+            beforeLabel.style.top = `${position - 5}%`;
+            afterLabel.style.top = `${position + 5}%`;
+        }
 
-document.addEventListener('wheel', (event) => {
-    event.preventDefault();
+        // Event listener for mouse wheel (scrolling)
+        document.addEventListener('wheel', (event) => {
+            event.preventDefault();
 
-    if (event.deltaY > 0) {
-        position += 1;
-    } else {
-        position -= 1;
-    }
+            if (event.deltaY > 0) {
+                position += 1;
+            } else {
+                position -= 1;
+            }
 
-    position = Math.max(0, Math.min(position, 100));
-    updateClipPath();
-});
+            position = Math.max(0, Math.min(position, 100)); // Ensure the position is within bounds
+            updateClipPath();
+        });
 
-document.addEventListener('touchstart', (event) => {
-    startY = event.touches[0].clientY;
-});
+        // Event listener for touch start (for mobile swipe)
+        document.addEventListener('touchstart', (event) => {
+            startY = event.touches[0].clientY;
+        });
 
-document.addEventListener('touchmove', (event) => {
-    event.preventDefault();
-    let moveY = event.touches[0].clientY;
-    let diff = startY - moveY;
+        // Event listener for touch move (for mobile swipe)
+        document.addEventListener('touchmove', (event) => {
+            event.preventDefault();
+            let moveY = event.touches[0].clientY;
+            let diff = startY - moveY;
 
-    if (diff < 0) {
-        position += 1;
-    } else {
-        position -= 1;
-    }
+            if (diff < 0) {
+                position += 1;
+            } else {
+                position -= 1;
+            }
 
-    position = Math.max(0, Math.min(position, 100));
-    updateClipPath();
-    startY = moveY;
-});
+            position = Math.max(0, Math.min(position, 100)); // Ensure the position is within bounds
+            updateClipPath();
+            startY = moveY;
+        });
 
-updateClipPath();
+        updateClipPath(); // Initialize with the starting position
     </script>
 </body>
 </html>
