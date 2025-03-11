@@ -10,40 +10,42 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden; /* Prevent page scroll */
+            overflow: hidden; /* Prevents entire page from scrolling */
             font-family: Arial, sans-serif;
             background-color: #111;
             color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Main wrapper to fit within the viewport */
+        /* Main wrapper - Distributes height properly */
         .wrapper {
             display: flex;
             flex-direction: column;
             width: 100%;
             max-width: 1200px;
-            align-items: center;
-            text-align: center;
             height: 100vh; /* Full viewport height */
             overflow: hidden;
+            min-height: 0; /* Fix for flexbox height issues */
         }
 
-        /* Container for the images and title */
+        /* Image section with before-after slider */
         .container {
-            flex: 1;
+            flex: 1; /* Takes half of the screen height */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 100%;
+            min-height: 0; /* Allows flexbox to shrink correctly */
         }
 
-        /* Image container for before-after effect */
         .image-container {
             position: relative;
             width: 100%;
             max-width: 600px;
-            height: 400px;
+            height: 300px;
             overflow: hidden;
         }
 
@@ -57,7 +59,7 @@
         }
 
         .image2 {
-            clip-path: inset(100% 0 0 0); /* Initially hidden */
+            clip-path: inset(100% 0 0 0);
         }
 
         /* Slider bar */
@@ -70,7 +72,7 @@
             z-index: 10;
         }
 
-        /* Labels for images */
+        /* Labels */
         .label {
             position: absolute;
             color: white;
@@ -80,21 +82,21 @@
             border-radius: 5px;
             font-size: 12px;
             transform: translateX(-50%);
-            transition: opacity 0.2s ease;
             left: 50%;
         }
 
         /* Scrollable text content */
         .text-content {
+            flex: 1; /* Takes the other half of the screen */
             width: 100%;
-            max-width: 400px;
+            max-width: 800px;
             padding: 20px;
             text-align: justify;
             z-index: 10;
-            max-height: 40vh; /* Limits height */
             overflow-y: auto; /* Enables scrolling */
             background-color: rgba(20, 20, 20, 0.8);
             border-radius: 8px;
+            min-height: 0; /* Ensures text area doesn't get cut */
         }
 
         h3 {
@@ -120,7 +122,7 @@
 
             .text-content {
                 width: 50%;
-                max-height: 90vh;
+                max-height: 100vh;
             }
         }
     </style>
@@ -129,82 +131,4 @@
     <div class="wrapper">
         <!-- Image Section -->
         <div class="container">
-            <h3 class="title">Kunwari Landslide (Bageshwar, Uttarakhand)</h3>
-            <p>ISRO obtained satellite images of this region and made the following observations.</p>
-            <div class="image-container">
-                <img src="Post.png" alt="After Landslide" class="image1">
-                <img src="Pre.png" alt="Before Landslide" class="image2">
-                <div class="slider-bar"></div>
-                <div class="label before">POST: CartoSat-3 (18 Nov 2024)</div>
-                <div class="label after">PRE: RS-2 LISS-IV (17 Apr 2024)</div>
-            </div>
-        </div>
-
-        <!-- Scrollable Text Section -->
-        <div class="text-content">
-            <p>(Swipe up or down to see the visualization)</p>
-            <p>A landslide-dammed lake was discovered near Kunwari village on November 14, 2024.</p>
-            <ul>
-                <li>This barrier lake has been observed to intermittently form and drain since 2014.</li>
-                <li>This recurring blockage poses a significant risk to Kunwari village.</li>
-                <li>The increasing lake volume raises concerns of a potential lake outburst due to the seismic activity in the region.</li>
-            </ul>
-        </div>
-    </div>
-
-    <script>
-        let position = 50; // Start at the middle
-        let startY = 0;
-
-        function updateClipPath() {
-            const image2 = document.querySelector('.image2');
-            const sliderBar = document.querySelector('.slider-bar');
-            const beforeLabel = document.querySelector('.label.before');
-            const afterLabel = document.querySelector('.label.after');
-
-            image2.style.clipPath = `inset(${position}% 0 0 0)`;
-
-            sliderBar.style.top = `${position}%`;
-            beforeLabel.style.top = `${position - 5}%`; // Slightly above slider
-            afterLabel.style.top = `${position + 5}%`; // Slightly below slider
-        }
-
-        // Scroll-based interaction
-        document.addEventListener('wheel', (event) => {
-            event.preventDefault();
-
-            if (event.deltaY > 0) {
-                position += 1;
-            } else {
-                position -= 1;
-            }
-
-            position = Math.max(0, Math.min(position, 100));
-            updateClipPath();
-        });
-
-        // Touch-based interaction for mobile
-        document.addEventListener('touchstart', (event) => {
-            startY = event.touches[0].clientY;
-        });
-
-        document.addEventListener('touchmove', (event) => {
-            event.preventDefault();
-            let moveY = event.touches[0].clientY;
-            let diff = startY - moveY;
-
-            if (diff < 0) {
-                position += 1;
-            } else {
-                position -= 1;
-            }
-
-            position = Math.max(0, Math.min(position, 100));
-            updateClipPath();
-            startY = moveY;
-        });
-
-        updateClipPath();
-    </script>
-</body>
-</html>
+            <h3 class="title">Kunwari
