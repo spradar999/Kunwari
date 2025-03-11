@@ -5,28 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kunwari Landslide - Before & After</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
 
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 1200px;
-            align-items: center;
-            text-align: center;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Allow full-page scrolling */
+}
+
 
         .image-container {
             position: relative;
@@ -71,14 +64,7 @@
             left: 25%;
         }
 
-        .text-content {
-            width: 100%;
-            font-size: 12px;
-            max-width: 800px;
-            padding: 20px;
-            text-align: justify;
-            z-index: 10;
-        }
+     
 
         h3 {
             color: #ffcc00;
@@ -88,18 +74,63 @@
             padding-left: 20px;
             list-style-position: outside;
         }
+		body {
+    overflow: hidden;
+}
 
-        @media (min-width: 768px) {
-            .wrapper {
-                flex-direction: row;
-                justify-content: center;
-                text-align: left;
-            }
 
-            .container, .text-content {
-                width: 50%;
-            }
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Allow full-page scrolling */
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    height: 100vh; /* Important: Ensures full height */
+    overflow: hidden;
+}
+
+.container {
+    flex: 1;
+    width: 100%;
+}
+
+.text-content {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    text-align: justify;
+    overflow-y: auto; /* Enables scrolling */
+    max-height: 50vh; /* Ensures space for scrolling */
+    word-wrap: break-word;
+}
+
+/* Mobile-friendly styles */
+@media (max-width: 768px) {
+    .wrapper {
+        height: auto; /* Allows normal scrolling */
+    }
+
+    .text-content {
+        max-height: 60vh; /* More space for text */
+    }
+}
+
+       
     </style>
 </head>
 <body>
@@ -118,9 +149,13 @@
 
         <div class="text-content">
             <p>(Swipe up or down to see the visualization)</p>
-            <p>A landslide-dammed lake was discovered near Kunwari village on November 14, 2024.</p>
+            <p>A landslide-dammed lake was discovered near 
+			Kunwari village on November 14, 2024.</p>
             <ul>
                 <li>This barrier lake has been observed to intermittently form and drain since 2014.</li>
+				<li>In 2022, the landslide reactivated again, blocking a tributary of the Pindar River in April and June.</li>
+				<li>The reactivation occurred along a pre-existing slope break, a zone of inherent weakness</li>
+				<li>The river channel has experienced a significant length shortening post-landslide.</li>
                 <li>This recurring blockage poses a significant risk to Kunwari village.</li>
                 <li>The increasing lake volume raises concerns of a potential lake outburst due to the seismic activity in the region.</li>
             </ul>
