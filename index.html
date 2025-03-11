@@ -103,16 +103,15 @@ body {
     height: 400px;
     overflow: hidden; /* Keeps images fixed */
 }
-
 .text-content {
-    margin: 0;
     width: 100%;
     max-width: 800px;
     padding: 20px;
     text-align: justify;
-    overflow-y: auto; /* Enables scrolling only for text */
+    overflow-y: auto; /* Enables scrolling */
     max-height: 40vh; /* Allows scrolling only inside text */
     word-wrap: break-word;
+    box-sizing: border-box; /* Ensures padding doesn’t cut off content */
 }
 
 /* Mobile-friendly styles */
