@@ -3,44 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taliye Landslide - Before & After</title>
+    <title>Kunwari Landslide - Before & After</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            box-sizing: border-box;
-        }
 
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 1200px;
-            align-items: center;
-            text-align: center;
-        }
-
-        .container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            height: 50vh;
-            overflow: hidden;
-            touch-action: none;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+	overflow-y: auto; 
+	height: auto; 
+}
 
         .image-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
 
         .image1, .image2 {
             position: absolute;
@@ -57,153 +37,197 @@
 
         .slider-bar {
             position: absolute;
-            top: 50%;
-            left: 0;
             width: 100%;
-            height: 2px;
+            height: 4px;
             background-color: white;
-            transform: translateY(-50%);
+            cursor: pointer;
             opacity: 1;
+            z-index: 10;
         }
 
-  .label {
-    position: absolute;
-    font-weight: bold;
-    background-color: rgba(0, 0, 0, 0);
-    
-    border-radius: 0px;
-}      
-
-label.before {
-    color: white;
-    top: 0px;
-    left: 10px;
-}
-
-label.after {
-    color: white;
-    bottom: 0px;
-    left: 0px;
-}
-
-        .text-content {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            text-align: justify;
+        .label {
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0);
+            padding: 5px 10px;
+            margin: 0;
+            border-radius: 5px;
+            font-size: 9px;
+            transform: translateX(-50%);
+            transition: opacity 0.2s ease;
+            left: 25%;
         }
+
+     
 
         h3 {
             color: #ffcc00;
+	    margin: 0;
         }
 
         ul {
             padding-left: 20px;
             list-style-position: outside;
         }
+		body {
+    overflow: hidden;
+}
 
-        @media (min-width: 768px) {
-            .wrapper {
-                flex-direction: row;
-                justify-content: center;
-                text-align: left;
-            }
-            .container, .text-content {
-                width: 50%;
-            }
-        }
+
+
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.container {
+    width: 100%;
+    background-color: #111;
+    z-index: 10;
+    padding: 10px 0;
+}
+.swipe-text {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 14px;
+}
+.image-container {
+    position: left;
+    width: 100%;
+    height: 400px;
+    overflow: hidden; /* Keeps images fixed */
+}
+.text-content {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    text-align: justify;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    overflow-y: auto; /* Enable scrolling within text content */
+    max-height: 70vh; /* Allow scrolling inside text area */
+}
+
+/* Mobile-friendly styles */
+@media (max-width: 768px) {
+    .wrapper {
+        height: 100vh; /* Keep full height */
+    }
+
+}
+
+
+       
     </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="container">
-		 <h3 class="title">Taliye Landslide (Raigad, Maharashtra)</h3>
+            <h3 class="title">Kunwari Landslide</h3>
+	    <h3 class="title">(Bageshwar, Uttarakhand)</h3>
             <p>ISRO obtained satellite images of this region and made the following observations.</p>
             <div class="image-container">
-                <img src="taliye_post.jpg" alt="Before Landslide" class="image1">
-                <img src="taliye_pre.jpg" alt="After Landslide" class="image2">
+                <img src="Post.png" alt="After Landslide" class="image1">
+                <img src="Pre.png" alt="Before Landslide" class="image2">
                 <div class="slider-bar"></div>
-                <div class="label before">After (Cartosat-2 July 24, 2021)</div>
-                <div class="label after">Before (Cartosat-2 July 19, 2021)</div>
+                <div class="label before">POST: CartoSat-3 (18 Nov 2024)</div>
+                <div class="label after">PRE: RS-2 LISS-IV (17 Apr 2024)</div>
             </div>
+		<p class="swipe-text">(Swipe up or down to see the visualization)</p> <!-- Placed directly below the image -->
         </div>
 
         <div class="text-content">
-             <p>(Swipe up or down to see the visualization)</p>
-            <p>A devastating landslide hit Taliye village in Raigad district, Maharashtra on July 22, 2021</p>
+	    <p><b>In Brief:</b></p>
             <ul>
-                <li>Over 80 people lost their lives.</li>
-                <li>Dozens of houses were completely buried under debris.</li>
-                <li>The landslide was triggered by incessant rainfall over the Western Ghats.</li>
-            </ul>
+				<li><i>The Kunwari landslide is situated on the right bank of the Baura Gad, a tributary of Pindar River in Bagehswar District.</i></li>
+                <li><i>This barrier lake has been observed to intermittently form and drain since 2014.</i></li>
+				<li><i>In 2022, the landslide reactivated again along a pre-existing slope break, a zone of inherent weakness, blocking a tributary of the Pindar River in April and June.</i></li>
+				<li><i> A landslide-dammed lake was discovered on November 14, 2024 which poses a significant risk to Kunwari village.</i></li>
+			 </ul>	
+		<p>	The Kunwari landslide (30.08° N, 79.81° E) is situated on the right bank of the Baura
+Gad, a tributary of the Pindar River, in Kapkot Tehsil, Bageshwar district, Uttarakhand. This
+landslide is situated in the seismically active Himalayan region, demonstrates a recurring
+pattern of periodic reactivation.The Kunwari landslides have a history of major events, including a significant
+landslide in June 2013 that blocked the Baura Gad. Subsequent reactivation events in June
+2014, November 2016, and April 2017 similarly obstructed the tributary, resulting in the
+formation of landslide-debris-dammed lakes. In 2022, the landslide reactivated again,
+blocking a tributary of the Pindar River in April and June. According to a news report
+published on November 14, 2024, by The Times of India, a landslide-dammed lake was
+discovered near Kunwari village. This barrier lake has been observed to intermittently form
+and drain since 2014. This recurring blockage poses a significant risk to the Kunwari village.
+The dammed lake continues to grow, with current dimensions estimated at 850 m in length
+and 60 m in width. The increasing lake volume raises concerns of a potential lake outburst
+due to seismic activeness of the region. A sudden breach could release a massive volume of
+water, potentially causing significant damage downstream.</p>
+<p>The Kunwari Landslide is driven by a confluence of geological and environmental factors.
+The terrain's susceptibility to instability is heightened by the presence of weak materials,
+steep slopes influenced by the proximity to the MCT4 and other faults, and a history of
+tectonic activity. Furthermore, the region experiences high precipitation, exacerbating slope
+instability. Anthropogenic disturbances, such as deforestation and infrastructure
+development, further compound these risks by disrupting the natural stability of the slope. </p>
+           
+		  
         </div>
     </div>
 
     <script>
-let position = 0;
-let startY = 0;
+        let position = 50; // Start at the middle
+        let startY = 0;
 
-function updateClipPath() {
-    const image2 = document.querySelector('.image2');
-    const sliderBar = document.querySelector('.slider-bar');
-    const beforeLabel = document.querySelector('.label.before');
-    const afterLabel = document.querySelector('.label.after');
-    const container = document.querySelector('.container');
-    const containerHeight = container.offsetHeight;
+        function updateClipPath() {
+            const image2 = document.querySelector('.image2');
+            const sliderBar = document.querySelector('.slider-bar');
+            const beforeLabel = document.querySelector('.label.before');
+            const afterLabel = document.querySelector('.label.after');
 
-    image2.style.clipPath = `inset(${position}% 0 0 0)`;
+            image2.style.clipPath = `inset(${position}% 0 0 0)`;
 
-    if (position > 5) {
-        sliderBar.style.opacity = '1';
-        beforeLabel.style.opacity = '1';
-        afterLabel.style.opacity = '1';
-    } else {
-        sliderBar.style.opacity = '0';
-        beforeLabel.style.opacity = '0';
-        afterLabel.style.opacity = '0';
-    }
+            sliderBar.style.top = `${position}%`;
+            beforeLabel.style.top = `${position - 5}%`; // Slightly above slider
+            afterLabel.style.top = `${position + 5}%`; // Slightly below slider
+        }
 
-    sliderBar.style.top = `${position}%`;
+        document.addEventListener('wheel', (event) => {
+            event.preventDefault();
 
-    beforeLabel.style.top = `${position - 5}%`;
-    afterLabel.style.top = `${position + 5}%`;
-}
+            if (event.deltaY > 0) {
+                position += 1;
+            } else {
+                position -= 1;
+            }
 
-document.addEventListener('wheel', (event) => {
-    event.preventDefault();
+            position = Math.max(0, Math.min(position, 100));
+            updateClipPath();
+        });
 
-    if (event.deltaY > 0) {
-        position += 1;
-    } else {
-        position -= 1;
-    }
+        document.addEventListener('touchstart', (event) => {
+            startY = event.touches[0].clientY;
+        });
 
-    position = Math.max(0, Math.min(position, 100));
-    updateClipPath();
-});
+        document.addEventListener('touchmove', (event) => {
+            event.preventDefault();
+            let moveY = event.touches[0].clientY;
+            let diff = startY - moveY;
 
-document.addEventListener('touchstart', (event) => {
-    startY = event.touches[0].clientY;
-});
+            if (diff < 0) {
+                position += 1;
+            } else {
+                position -= 1;
+            }
 
-document.addEventListener('touchmove', (event) => {
-    event.preventDefault();
-    let moveY = event.touches[0].clientY;
-    let diff = startY - moveY;
+            position = Math.max(0, Math.min(position, 100));
+            updateClipPath();
+            startY = moveY;
+        });
 
-    if (diff < 0) {
-        position += 1;
-    } else {
-        position -= 1;
-    }
-
-    position = Math.max(0, Math.min(position, 100));
-    updateClipPath();
-    startY = moveY;
-});
-
-updateClipPath();
-         
+        updateClipPath();
     </script>
 </body>
 </html>
