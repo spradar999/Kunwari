@@ -11,35 +11,40 @@ body {
     font-family: Arial, sans-serif;
     background-color: #111;
     color: white;
-	overflow-y: auto; 
-	height: auto; 
+    overflow-y: auto; /* Ensure full-page scrolling */
+    height: auto; /* Allow content to expand */
 }
 
-        .image-container {
+
+.image-container {
     position: relative;
     width: 100%;
-    height: 400px;
+    max-width: 800px; /* Adjust width for desktop */
+    height: 500px; /* Adjust height as needed */
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	 margin: auto;
 }
 
-        .image1, .image2 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
+.image1, .image2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures full image visibility without cropping */
+}
         .image2 {
             clip-path: inset(100% 0 0 0);
         }
 
         .slider-bar {
             position: absolute;
-            width: 100%;
+            width: 75%;
             height: 4px;
-            background-color: white;
+            background-color: black;
             cursor: pointer;
             opacity: 1;
             z-index: 10;
@@ -56,7 +61,7 @@ body {
             font-size: 9px;
             transform: translateX(-50%);
             transition: opacity 0.2s ease;
-            left: 25%;
+            left: 30%;
         }
 
      
@@ -70,12 +75,14 @@ body {
             padding-left: 20px;
             list-style-position: outside;
         }
-		body {
-    overflow: hidden;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+    overflow-y: auto; /* Allow full-page scrolling */
+    height: auto;
 }
-
-
-
 
 .wrapper {
     display: flex;
@@ -84,7 +91,9 @@ body {
     text-align: center;
     width: 100%;
     max-width: 1200px;
+    padding: 20px;
 }
+
 
 .container {
     width: 100%;
@@ -98,31 +107,47 @@ body {
     text-align: center;
     font-size: 14px;
 }
-.image-container {
-    position: left;
-    width: 100%;
-    height: 400px;
-    overflow: hidden; /* Keeps images fixed */
-}
+
+
 .text-content {
-    width: 100%;
+     width: 100%;
     max-width: 800px;
     padding: 20px;
     text-align: justify;
     word-wrap: break-word;
     box-sizing: border-box;
-    overflow-y: auto; /* Enable scrolling within text content */
-    max-height: 40vh; /* Allow scrolling inside text area */
-    border-radius:8px;
+    border-radius: 8px;
+ 
     padding-bottom: 120px;
+    height: auto; /* Adjusts dynamically to content */
+    min-height: 100px; /* Ensures some height */
+    max-height: 80vh; /* Allows proper space on screen */
 }
 
-/* Mobile-friendly styles */
+
+
+
+/* Fix for Mobile Screens */
 @media (max-width: 768px) {
-    .wrapper {
-        height: 100vh; /* Keep full height */
+    .image-container {
+        height: 300px; /* Adjust for smaller screens */
+        max-height: 50vh;
     }
 
+    .image1, .image2 {
+        object-fit: contain; /* Ensures full visibility on small screens */
+    }
+       .text-content {
+         max-width: 90%; /* Avoids excessive width */
+        font-size: 14px; /* Ensures readability */
+        padding: 10px;
+        height: auto; /* Expands naturally */
+        max-height: 250vh; /* Prevents cutting while allowing scrolling */
+		padding-bottom: 300px;
+        
+    }
+    }
+}
 }
 
 
@@ -180,56 +205,66 @@ development, further compound these risks by disrupting the natural stability of
     </div>
 
     <script>
-        let position = 50; // Start at the middle
-        let startY = 0;
+  let isDragging = false;
+let startY = 0;
+let position = 50; // Start at the middle
+const imageContainer = document.querySelector('.image-container');
+const image2 = document.querySelector('.image2');
+const sliderBar = document.querySelector('.slider-bar');
+const beforeLabel = document.querySelector('.label.before');
+const afterLabel = document.querySelector('.label.after');
 
-        function updateClipPath() {
-            const image2 = document.querySelector('.image2');
-            const sliderBar = document.querySelector('.slider-bar');
-            const beforeLabel = document.querySelector('.label.before');
-            const afterLabel = document.querySelector('.label.after');
+function updateClipPath() {
+    image2.style.clipPath = `inset(${position}% 0 0 0)`;
+    sliderBar.style.top = `${position}%`;
+    beforeLabel.style.top = `${position - 5}%`;
+    afterLabel.style.top = `${position + 5}%`;
+}
 
-            image2.style.clipPath = `inset(${position}% 0 0 0)`;
+// Start drag/swipe
+function startDrag(event) {
+    if (!event.target.closest('.image-container')) return; // Ensure event is on the image
+    isDragging = true;
+    startY = event.clientY || event.touches[0].clientY;
+}
 
-            sliderBar.style.top = `${position}%`;
-            beforeLabel.style.top = `${position - 5}%`; // Slightly above slider
-            afterLabel.style.top = `${position + 5}%`; // Slightly below slider
-        }
+// Move drag/swipe
+function dragMove(event) {
+    if (!isDragging) return;
 
-        document.addEventListener('wheel', (event) => {
-            event.preventDefault();
+    let moveY = event.clientY || event.touches[0].clientY;
+    let diff = startY - moveY;
 
-            if (event.deltaY > 0) {
-                position += 1;
-            } else {
-                position -= 1;
-            }
+    position = Math.max(0, Math.min(100, position - diff / 5)); // Adjust sensitivity
+    updateClipPath();
 
-            position = Math.max(0, Math.min(position, 100));
-            updateClipPath();
-        });
+    startY = moveY;
+}
 
-        document.addEventListener('touchstart', (event) => {
-            startY = event.touches[0].clientY;
-        });
+// End drag/swipe
+function endDrag() {
+    isDragging = false;
+}
 
-        document.addEventListener('touchmove', (event) => {
-            event.preventDefault();
-            let moveY = event.touches[0].clientY;
-            let diff = startY - moveY;
+// Apply event listeners
+imageContainer.addEventListener('mousedown', startDrag);
+document.addEventListener('mousemove', dragMove);
+document.addEventListener('mouseup', endDrag);
 
-            if (diff < 0) {
-                position += 1;
-            } else {
-                position -= 1;
-            }
+imageContainer.addEventListener('touchstart', startDrag);
+document.addEventListener('touchmove', dragMove, { passive: false });
+document.addEventListener('touchend', endDrag);
 
-            position = Math.max(0, Math.min(position, 100));
-            updateClipPath();
-            startY = moveY;
-        });
+// Only allow scrolling when over the image-container
+document.addEventListener('wheel', (event) => {
+    if (!event.target.closest('.image-container')) return;
+    event.preventDefault();
+    position = Math.max(0, Math.min(100, position + (event.deltaY > 0 ? 2 : -2))); // Adjust step
+    updateClipPath();
+}, { passive: false });
 
-        updateClipPath();
+// Initialize slider position
+updateClipPath();
     </script>
 </body>
 </html>
